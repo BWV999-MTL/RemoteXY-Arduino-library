@@ -116,6 +116,7 @@
 #include "RemoteXYStream_AltSoftSerial.h"     // need AltSoftSerial.h    
 #include "RemoteXYStream_BluetoothSerial.h"   // need BluetoothSerial.h
 #include "RemoteXYStream_BLEDevice.h"         // need BLEDevice.h
+#include "RemoteXYStream_NimBLE.h"
 #include "RemoteXYStream_BLEPeripheral.h"     // need BLEPeripheral.h
 #include "RemoteXYStream_ArduinoBLE.h"        // need ArduinoBLEl.h
 #include "RemoteXYNet_WiFi.h"                // need ESP8266WiFi.h (ESP8266) or WiFi.h (ESP32) or WiFi.h (Arduino shield) 
@@ -147,6 +148,9 @@
 
 #elif defined(REMOTEXY_MODE__ESP32CORE_BLE)
   #define RemoteXY_Init() RemoteXYEngine.addGui (RemoteXY_CONF_PROGMEM, &RemoteXY, REMOTEXY_ACCESS_PASSWORD)->addConnection (new CRemoteXYStream_BLEDevice (REMOTEXY_BLUETOOTH_NAME)) 
+  
+#elif defined(REMOTEXY_MODE__ESP32CORE_NIMBLE)
+  #define RemoteXY_Init() RemoteXYEngine.addGui(RemoteXY_CONF_PROGMEM, &RemoteXY, REMOTEXY_ACCESS_PASSWORD)->addConnection(new CRemoteXYStream_NimBLE(REMOTEXY_BLUETOOTH_NAME))
 
 #elif defined(REMOTEXY_MODE__WIFI) || defined(REMOTEXY_MODE__ESP32CORE_WIFI) || defined(REMOTEXY_MODE__ESP8266CORE_ESP8266WIFI) || defined(REMOTEXY_MODE__ESP8266WIFI_LIB) 
   #define RemoteXY_Init() RemoteXYEngine.addGui (RemoteXY_CONF_PROGMEM, &RemoteXY, REMOTEXY_ACCESS_PASSWORD)->addConnectionServer (new CRemoteXYNet_WiFi (REMOTEXY_WIFI_SSID, REMOTEXY_WIFI_PASSWORD), REMOTEXY_SERVER_PORT)
